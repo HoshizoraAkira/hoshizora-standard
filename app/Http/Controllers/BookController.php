@@ -136,4 +136,21 @@ class BookController extends Controller
         return $pdf->download('laporan-book.pdf');
     }
 
+    public function getApi()
+    {
+        $data = Books::with('Bookshelfs')->get();
+        foreach ($data as $row){
+            $row->cover = asset('convers/'.$row->cover);
+        }
+        $status = 0;
+        if($data){
+            $status = 1;
+        }
+        return [
+            'status' => $status,
+            'data' => $data,
+            'message' => 'OK'
+        ];
+    }
+
 }

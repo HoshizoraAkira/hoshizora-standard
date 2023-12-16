@@ -1,6 +1,6 @@
 <x-app-layout>
-    <div class="container mx-auto mt-8">
-        <div class="max-w-4xl mx-auto bg-white dark:bg-gray-800 p-8 border rounded shadow dark:border-gray-600">
+    <div class="mx-auto mt-8">
+        <div class="max-w-6xl mx-auto bg-white dark:bg-gray-800 p-8 border rounded shadow dark:border-gray-600">
             <h1 class="text-2xl font-bold mb-6 dark:text-white">Import Buku</h1>
             <form action="{{ route('books.import-excel') }}" method="post" enctype="multipart/form-data">
                 @csrf
@@ -17,8 +17,8 @@
             </form>
         </div>
     </div>
-    <div class="container mx-auto mt-8">
-        <div class="max-w-4xl mx-auto bg-white dark:bg-gray-800 p-8 border rounded shadow dark:border-gray-600">
+    <div class="mx-auto mt-8">
+        <div class="max-w-6xl mx-auto bg-white dark:bg-gray-800 p-8 border rounded shadow dark:border-gray-600">
             <h1 class="text-2xl font-bold mb-6 dark:text-white">Daftar Buku</h1>
 
             @if(session('success'))
