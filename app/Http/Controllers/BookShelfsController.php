@@ -9,6 +9,7 @@ use App\Imports\BookShelfsImport;
 use App\Models\Bookshelfs;
 use Maatwebsite\Excel\Facades\Excel;
 use PDF;
+use RealRashid\SweetAlert\Facades\Alert;
 
 class BookShelfsController extends Controller
 {
@@ -37,6 +38,7 @@ class BookShelfsController extends Controller
     {
         $model = $request->validated();
         Bookshelfs::create($model);
+        Alert::success("Data sukses disimpan");
         return redirect()->route('bookshelfs.index');
     }
 
@@ -66,6 +68,7 @@ class BookShelfsController extends Controller
         Bookshelfs::updateOrCreate([
             'id' => $bookshelf->id
         ],$request->all());
+        Alert::success("Data sukses disimpan");
         return redirect()->route('bookshelfs.index');
     }
 
@@ -75,6 +78,7 @@ class BookShelfsController extends Controller
     public function destroy(Bookshelfs $bookshelf)
     {
         $bookshelf->delete();
+        Alert::success("Data sukses dihapus");
         return redirect()->route('bookshelfs.index');
     }
 
@@ -89,6 +93,7 @@ class BookShelfsController extends Controller
 
         // import data
         Excel::import(new BookShelfsImport, public_path('/file_import/'.$nama_file));
+        Alert::success("Data sukses disimpan");
         return redirect()->route('bookshelfs.index');
     }
 

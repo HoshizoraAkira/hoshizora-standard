@@ -12,6 +12,7 @@ use PDF;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 use Maatwebsite\Excel\Facades\Excel;
+use RealRashid\SweetAlert\Facades\Alert;
 
 class BookController extends Controller
 {
@@ -45,6 +46,7 @@ class BookController extends Controller
         $model = $request->validated();
         $model['cover'] = 'covers/'.$imageName;
         Books::create($model);
+        Alert::success("Data sukses disimpan");
         return redirect()->route('books.index');
     }
 
@@ -85,6 +87,7 @@ class BookController extends Controller
         Books::updateOrCreate([
             'id' => $book->id
         ],$model);
+        Alert::success("Data sukses disimpan");
         return redirect()->route('books.index');
     }
 
@@ -99,6 +102,7 @@ class BookController extends Controller
             }
         }
         $book->delete();
+        Alert::success("Data sukses dihapus");
         return redirect()->route('books.index');
     }
 
@@ -113,6 +117,7 @@ class BookController extends Controller
 
         // import data
         Excel::import(new BooksImport, public_path('/file_import/'.$nama_file));
+        Alert::success("Data sukses di import");
         return redirect()->route('books.index');
     }
 
@@ -132,7 +137,7 @@ class BookController extends Controller
             $base64 = 'data:image/' . $type . ';base64,' . base64_encode($data);
             $row->cover = $base64;
         }
-        $pdf = PDF::loadview('books.print',['books'=>$books])->setPaper('a4', 'landscape');;
+        $pdf = PDF::loadview('books.print',['books'=>$books])->setPaper('a4', 'landscape');
         return $pdf->download('laporan-book.pdf');
     }
 
