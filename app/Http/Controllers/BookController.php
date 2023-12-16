@@ -8,6 +8,7 @@ use App\Http\Requests\UploadFileExcelRequest;
 use App\Imports\BooksImport;
 use App\Models\Books;
 use App\Models\Bookshelfs;
+use PDF;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 use Maatwebsite\Excel\Facades\Excel;
@@ -120,4 +121,19 @@ class BookController extends Controller
         return Excel::download(new BooksExport, 'books.xlsx');
 
     }
+
+    public function export_pdf()
+    {
+        $books = Books::all();
+        foreach ($books as $row){
+            $path = public_path("storage"."/".$row->cover );
+            $type = pathinfo($path, PATHINFO_EXTENSION);
+            $data = file_get_contents($path);
+            $base64 = 'data:image/' . $type . ';base64,' . base64_encode($data);
+            $row->cover = $base64;
+        }
+        $pdf = PDF::loadview('books.print',['books'=>$books])->setPaper('a4', 'landscape');;
+        return $pdf->download('laporan-book.pdf');
+    }
+
 }

@@ -26,9 +26,12 @@
                     {{ session('success') }}
                 </div>
             @endif
-            <a href="{{ route('bookshelfs.create') }}" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mb-4">Tambah</a>
-            <br><br>
-            <a href="{{ route('book-shelfs.export-excel') }}" target="_blank" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mb-4">Download Excel</a>
+
+            <div class="flex space-x-4">
+                <a href="{{ route('bookshelfs.create') }}" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mb-4">Tambah</a>
+                <a href="{{ route('book-shelfs.export-excel') }}" target="_blank" class="bg-green-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mb-4">Download Excel</a>
+                <a href="{{ route('book-shelfs.export-pdf') }}" target="_blank" class="bg-red-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mb-4">Download PDF</a>
+            </div>
             <br><br>
             <table class="w-full table-auto border">
                 <thead class="border-collapse border border-slate-500">

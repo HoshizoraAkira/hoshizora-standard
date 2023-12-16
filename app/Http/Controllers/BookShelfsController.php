@@ -6,10 +6,9 @@ use App\Exports\BookShelfsExport;
 use App\Http\Requests\BookShelfsRequest;
 use App\Http\Requests\UploadFileExcelRequest;
 use App\Imports\BookShelfsImport;
-use App\Imports\BooksImport;
-use App\Models\Books;
 use App\Models\Bookshelfs;
 use Maatwebsite\Excel\Facades\Excel;
+use PDF;
 
 class BookShelfsController extends Controller
 {
@@ -96,6 +95,13 @@ class BookShelfsController extends Controller
     public function export_excel()
     {
         return Excel::download(new BookShelfsExport, 'bookshelfs.xlsx');
+    }
+
+    public function export_pdf()
+    {
+        $bookshelfs = Bookshelfs::all();
+        $pdf = PDF::loadview('bookshelfs.print',['bookshelfs'=>$bookshelfs])->setPaper('a4', 'landscape');;
+        return $pdf->download('laporan-bookshelfs.pdf');
     }
 
 }
